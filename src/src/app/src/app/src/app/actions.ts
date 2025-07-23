@@ -3,6 +3,10 @@
 import { z } from "zod";
 import { symptomChecker } from "@/ai/flows/symptom-checker";
 import { dentalKnowledge } from "@/lib/dental-knowledge";
+import { addAppointment } from "@/lib/appointments-store";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 
 // Symptom Checker Action
 export async function runSymptomChecker(symptoms: string) {
@@ -65,14 +69,51 @@ export async function submitAppointmentRequest(
       success: false,
     };
   }
+  
+  try {
+    addAppointment(validatedFields.data);
+  } catch(e) {
+      console.error("Failed to save appointment", e);
+      return {
+          message: "A server error occurred. Could not save your appointment. Please try again later.",
+          success: false,
+          errors: {},
+      }
+  }
 
-  // Here you would typically save the data to a database.
-  // For this example, we'll just log it to the console.
-  console.log("New Appointment Request:", validatedFields.data);
 
   return {
     message: "Thank you! Your appointment request has been submitted. We will contact you shortly to confirm.",
     success: true,
     errors: {},
   };
+}
+
+export type LoginFormState = {
+  error?: string;
+  success: boolean;
+}
+
+export async function login(prevState: LoginFormState, formData: FormData): Promise<LoginFormState> {
+  const password = formData.get('password');
+  // In a real application, use an environment variable for the password.
+  if (password === 'admin123') {
+    cookies().set('admin-auth', 'true', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24, // 1 day
+      path: '/',
+    });
+    redirect('/admin');
+  } else {
+    return {
+      error: 'Invalid password.',
+      success: false,
+    }
+  }
+}
+
+export async function logout() {
+  cookies().delete('admin-auth');
+  redirect('/admin/login');
 }
