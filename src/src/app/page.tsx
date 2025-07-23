@@ -1,7 +1,9 @@
-import { ClipboardList, Clock, MapPin, Phone, Stethoscope } from "lucide-react";
+import { ClipboardList, Clock, MapPin, Phone, Stethoscope, UserCog } from "lucide-react";
 import { AppointmentForm } from "@/components/appointment-form";
 import { SymptomChecker } from "@/components/symptom-checker";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Link from 'next/link';
+import { Button } from "@/components/ui/button";
 
 function ClinicInfo() {
   return (
@@ -44,11 +46,19 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="py-4 px-4 sm:px-6 lg:px-8 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <Stethoscope className="h-8 w-8 text-primary" />
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-headline">
-            Smile Hub
-          </h1>
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Stethoscope className="h-8 w-8 text-primary" />
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-headline">
+              Smile Hub
+            </h1>
+          </div>
+          <Button asChild variant="outline">
+            <Link href="/admin">
+                <UserCog className="mr-2 h-4 w-4" />
+                Admin Panel
+            </Link>
+          </Button>
         </div>
       </header>
 
