@@ -1,1 +1,32 @@
-
+{
+  "name": "dental-clinic",
+  "version": "1.0.0",
+  "description": "A complete dental clinic website with authentication, admin dashboard, and payment integration",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "dev:all": "concurrently \"npm run dev\" \"live-server frontend\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "stripe": "^14.4.0",
+    "express-session": "^1.17.3",
+    "connect-mongo": "^5.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "concurrently": "^8.2.0"
+  },
+  "keywords": ["dental", "clinic", "nodejs", "mongodb", "express"],
+  "author": "Your Name",
+  "license": "MIT"
+}
