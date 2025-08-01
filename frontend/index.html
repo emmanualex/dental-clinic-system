@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileCare Dental Clinic</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>SmileCare</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="auth-btn"><button class="btn btn-primary" onclick="openModal('loginModal')">Login</button></li>
+                    <li class="auth-btn"><button class="btn btn-secondary" onclick="openModal('registerModal')">Register</button></li>
+                    <li id="userMenu" style="display: none;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span id="userName"></span>
+                            <a href="admin/index.html" id="adminLink" style="display: none;">Admin</a>
+                            <button class="btn btn-danger" id="logoutBtn">Logout</button>
+                        </div>
+                    </li>
+                    <li><button class="btn btn-primary" onclick="openModal('appointmentModal')">Book Appointment</button></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Your Smile, Our Priority</h1>
+            <p>Professional dental care with modern technology and compassionate service</p>
+            <button class="btn btn-secondary" onclick="openModal('appointmentModal')">Book Appointment</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-tooth service-icon"></i>
+                    <h3>General Dentistry</h3>
+                    <p>Comprehensive dental care including cleanings, exams, and preventive treatments.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-teeth service-icon"></i>
+                    <h3>Cosmetic Dentistry</h3>
+                    <p>Transform your smile with veneers, whitening, and aesthetic procedures.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bone service-icon"></i>
+                    <h3>Orthodontics</h3>
+                    <p>Straighten your teeth with braces and clear aligners for all ages.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-heartbeat service-icon"></i>
+                    <h3>Dental Implants</h3>
+                    <p>Replace missing teeth with natural-looking, functional implants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At SmileCare Dental Clinic, we believe that everyone deserves a healthy, beautiful smile. Our team of experienced dentists and hygienists are committed to providing exceptional dental care in a comfortable, welcoming environment.</p>
+                    <p>We use the latest technology and techniques to ensure the best possible outcomes for our patients. From routine cleanings to complex procedures, we're here to help you achieve optimal oral health.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Dental Clinic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>123 Dental Street, City, State 12345</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@smilecare.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Mon-Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <form id="contactForm" class="contact-form">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                    <input type="text" id="contactSubject" placeholder="Subject" required>
+                    <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Modal -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
+            <h2>Book Appointment</h2>
+            <form id="appointmentForm">
+                <input type="text" id="patientName" placeholder="Full Name" required>
+                <input type="email" id="patientEmail" placeholder="Email" required>
+                <input type="tel" id="patientPhone" placeholder="Phone Number" required>
+                <input type="date" id="appointmentDate" required>
+                <input type="time" id="appointmentTime" required>
+                <select id="service" required>
+                    <option value="">Select Service</option>
+                    <option value="General Checkup">General Checkup</option>
+                    <option value="Teeth Cleaning">Teeth Cleaning</option>
+                    <option value="Teeth Whitening">Teeth Whitening</option>
+                    <option value="Dental Implants">Dental Implants</option>
+                    <option value="Orthodontics">Orthodontics</option>
+                    <option value="Cosmetic Dentistry">Cosmetic Dentistry</option>
+                </select>
+                <textarea id="appointmentMessage" placeholder="Additional Information"></textarea>
+                <button type="submit" class="btn btn-primary">Book Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('registerModal')">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <input type="text" id="registerName" placeholder="Full Name" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="tel" id="registerPhone" placeholder="Phone Number">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    Already have an account? <a href="#" onclick="closeModal('registerModal'); openModal('loginModal')">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('paymentModal')">&times;</span>
+            <h2>Payment</h2>
+            <div id="payment-form-container">
+                <div id="card-element">
+                    <!-- Stripe Elements will create form elements here -->
+                </div>
+                <button id="submit-payment" class="btn btn-primary" style="margin-top: 20px;">Pay Now</button>
+                <div id="payment-errors" role="alert" style="color: red; margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SmileCare Dental Clinic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
